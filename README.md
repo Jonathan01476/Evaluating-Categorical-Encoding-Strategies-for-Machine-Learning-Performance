@@ -36,3 +36,12 @@ Our goal is to determine whether certain encoding strategies consistently outper
 ## Expected Outcome
 
 The project will provide an empirical comparison of location encoding methods and demonstrate how encoding choices interact with machine learning algorithms. Rather than assuming one encoding strategy is universally superior, we will identify which combinations work best for the selected prediction task.
+
+## Data files
+
+All datasets are stored in `data/`:
+
+- `data/flights.csv`: flight records, including the `arr_delay` target.
+- `data/airport_coordinates.csv`: airport latitude/longitude lookup for geographic encoding.
+
+Run `Final_Project.ipynb` with the project root as the working directory so its relative data paths resolve correctly.
