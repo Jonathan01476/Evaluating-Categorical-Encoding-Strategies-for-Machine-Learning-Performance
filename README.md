@@ -2,6 +2,10 @@
 
 # Location Encoding and Model Comparison
 
+## Modeling plan
+
+See [the reviewed modeling plan](MODELING_PLAN.md) for the next phase: predicting arrival delay with five airport encodings under shared splits, fold-local preprocessing, fixed model settings, and paired evaluation. The plan includes its review findings and implementation checklist.
+
 ## Project Overview
 
 This project investigates how different encoding strategies for categorical location variables affect the predictive performance of machine learning models. Location variables can contain hundreds or thousands of unique categories, making their representation an important modeling decision.
