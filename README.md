@@ -4,7 +4,7 @@
 
 ## Modeling plan
 
-See [the reviewed modeling plan](MODELING_PLAN.md) for the next phase: predicting arrival delay with five airport encodings under shared splits, fold-local preprocessing, fixed model settings, and paired evaluation. The plan includes its review findings and implementation checklist.
+See the [modeling plan](MODELING_PLAN.md) for how we compare five airport encodings on the same flights using fixed model settings.
 
 ## Project Overview
 
