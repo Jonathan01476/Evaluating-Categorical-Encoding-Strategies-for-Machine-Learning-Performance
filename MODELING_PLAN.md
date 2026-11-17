@@ -4,6 +4,8 @@ How much does the choice of airport encoding change prediction error for the sam
 
 ## 1. Prepare the same flights and predictors
 
+**Completed in the notebook.** The dataset builder one-hot encodes carrier, month, and weekday once per training split and checks that the resulting columns and values match across all five airport variants. The remaining modeling steps include scheduled-time conversion, Ridge scaling, model fitting, and evaluation.
+
 Use all 327,346 flights with an observed `arr_delay`. Keep early arrivals and extreme delays. Set aside the target and build the predictor matrix from the following features only.
 
 | Shared predictor | Preparation |
