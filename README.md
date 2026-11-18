@@ -1,4 +1,4 @@
-# ITSC-3162-Final-Project
+# Evaluating Categorical Encoding Strategies for Machine Learning Performance
 
 # Location Encoding and Model Comparison
 
