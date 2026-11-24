@@ -4,7 +4,7 @@
 
 ## Modeling plan
 
-See the [modeling plan](MODELING_PLAN.md) for how we compare five airport encodings on the same flights using fixed model settings.
+Run [the modeling notebook](src/modeling/Modeling.ipynb) for all 15 model and encoding combinations. See the [modeling plan](MODELING_PLAN.md) for the shared protocol.
 
 ## Project Overview
 
@@ -20,11 +20,7 @@ The notebook draws one reproducible sample of 100,000 flights with observed arri
 
 ## Methodology
 
-We will evaluate these strategies across several machine learning algorithms, including linear regression, random forests, and gradient boosting.
-
-Each combination of encoding strategy and model will form a separate pipeline. We will use identical training and validation splits and compare predictive performance using cross-validation.
-
-All preprocessing will be performed within the training folds to prevent data leakage.
+The modeling notebook evaluates Ridge, Gradient Boosting, and a standalone Decision Tree across all five encodings. Each model family uses one fixed configuration. All combinations use the same five development folds, with learned preprocessing fitted inside each fold, and the same held-out test flights.
 
 ## Research Questions
 
@@ -34,7 +30,7 @@ All preprocessing will be performed within the training folds to prevent data le
 
 ## Evaluation
 
-For a regression task, we will use RMSE and MAE to evaluate predictive accuracy. We will also compare training times and feature dimensionality.
+Compare prediction error using RMSE and MAE in minutes. The notebook also reports R? and wall-clock fit time.
 
 Our goal is to determine whether certain encoding strategies consistently outperform others or whether their effectiveness depends on the model being used.
 
@@ -49,4 +45,4 @@ All datasets are stored in `data/`:
 - `data/flights.csv`: flight records, including the `arr_delay` target.
 - `data/airport_coordinates.csv`: airport latitude/longitude lookup for geographic encoding.
 
-Run `Final_Project.ipynb` with the project root as the working directory so its relative data paths resolve correctly.
+Use [the data-preparation notebook](src/Final_Project.ipynb) to inspect the sample and encoded inputs. Both notebooks share the sampling and encoding code in `src/airport_encoding.py`.

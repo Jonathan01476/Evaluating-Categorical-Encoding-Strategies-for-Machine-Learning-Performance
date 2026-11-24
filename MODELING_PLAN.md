@@ -1,20 +1,10 @@
 # Comparing airport encodings for arrival delay
 
-How much does the choice of airport encoding change prediction error for the same model? Predict arrival delay in minutes immediately after departure, when departure delay is known. For each model, compare five ways to represent origin and destination while holding the flights, other predictors, and model settings fixed.
+How much does the choice of airport encoding change prediction error for the same model? Predict arrival delay in minutes from origin and destination. For each model, compare five ways to represent those airports while holding the flights and model settings fixed.
 
 ## 1. Prepare the same flights and predictors
 
-**Completed in the notebook.** The dataset builder now returns only the selected encoding of origin and destination plus the target. The modeling predictors are limited to location. Model fitting and evaluation remain to be done.
-
-Draw one random sample of 100,000 flights from the 327,346 with an observed `arr_delay`, without replacement and with seed 42. Keep early arrivals and extreme delays eligible for sampling. Set aside the target and build the predictor matrix from the following features only.
-
-| Shared predictor | Preparation |
-| --- | --- |
-| Departure delay and distance | Use the recorded numeric values. |
-| Carrier, month, and weekday | Derive weekday from the flight date. Fit one shared one-hot encoder on training rows and reuse its columns across all five datasets. An unseen category gets zeros for that field. |
-| Scheduled departure and arrival times | Validate each HHMM value and convert it to minutes since midnight, treating 2400 as midnight. Represent each time with sine and cosine over a 1,440-minute cycle. |
-
-Add one airport representation to these shared features. Keep the flight ID for matching predictions. Actual arrival time and air time are unavailable at departure and must stay outside the predictor matrix.
+Draw one random sample of 100,000 flights from the 327,346 with an observed `arr_delay`, without replacement and with seed 42. Keep early arrivals and extreme delays eligible for sampling. Use all features from the selected airport encoding and keep `arr_delay` as the target.
 
 ## 2. Build each encoding within the training fold
 
@@ -39,26 +29,38 @@ Use the same settings for all five encodings within each row of the table. Store
 | Model | Fixed settings |
 | --- | --- |
 | Ridge regression | Alpha 1.0, intercept enabled, LSQR solver, tolerance 0.0001, maximum 10,000 iterations |
-| Random forest | 200 trees, maximum depth 20, minimum 5 samples per leaf, all features available at each split, bootstrap sampling, seed 42, one worker |
+| Decision tree | Squared error, best splitter, maximum depth 8, minimum 50 samples per leaf, all features available at each split, seed 42 |
 | Gradient boosting | Squared error, 200 stages, learning rate 0.05, maximum depth 3, minimum 5 samples per leaf, all features and rows per stage, early stopping disabled, seed 42 |
 
-Include four baselines. One predicts the training mean delay. The other three fit each model using only the shared predictors, which shows how much airport information adds.
-
-First run all 15 model and encoding combinations on a small development sample. Check row and target alignment, finite predictions, unknown-category handling, and sparse matrix compatibility. Change validation targets and confirm that training features and validation predictions stay identical. Then run the five full folds with the fixed settings.
+Run all 15 combinations with these fixed settings.
 
 ## 4. Compare predictions on the same flights
 
-Use **root mean squared error (RMSE), in minutes**, as the primary score. Also report mean absolute error (MAE) in minutes and R². Within each model, subtract one-hot's error from each encoding's error on the same flights. A difference of −0.5 minutes means the encoding reduced that error metric by half a minute.
+Use **root mean squared error (RMSE)** in minutes as the primary score. Also report mean absolute error (MAE) in minutes and R?. Report individual validation fold scores and summarize RMSE across folds by its mean and standard deviation.
 
-- Report each fold's scores, their mean and standard deviation, and the scores calculated over all out-of-fold predictions together.
+Measure fit time in seconds with one thread, after encoding and before prediction. Ridge fit time includes scaling. Compare median and range across the five folds on the same machine.
+
+## 5. Evaluate the holdout
+
+Refit all 15 combinations on the 80,000 development flights and score them on the same 20,000 test flights. Use the holdout scores to report final performance. If highlighting one combination, choose it by development RMSE before reviewing holdout scores.
+
+Interpret the findings within each model family for flights with recorded delays in this historical sample. Geographic encoding supplies external coordinates, and each representation can change how many features the model sees.
+
+## Optional follow-up analyses
+
+A separate comparison can add the same predictors to every encoding.
+
+| Shared predictor | Preparation |
+| --- | --- |
+| Departure delay and distance | Use the recorded numeric values. |
+| Carrier, month, and weekday | Derive weekday from the flight date. Fit one shared one-hot encoder on training rows and reuse its columns across all five datasets. An unseen category gets zeros for that field. |
+| Scheduled departure and arrival times | Validate each HHMM value and convert it to minutes since midnight, treating 2400 as midnight. Represent each time with sine and cosine over a 1,440-minute cycle. |
+
+Add one airport representation to these shared features. Keep the flight ID for matching predictions. Actual arrival time and air time are unavailable at departure and must stay outside the predictor matrix.
+
+Include four baselines. One predicts the training mean delay. The other three fit each model using only the shared predictors, which shows how much airport information adds.
+
 - Compare each model with its no-airport baseline and the mean-delay baseline. Examine errors on long delays and at airports with few training flights. Include subgroup counts.
-- Record feature count, matrix memory, and time spent preparing features, fitting, and predicting. Use the same machine and thread limits and count shared preprocessing costs consistently.
 - If reporting uncertainty in paired error differences, resample whole flight dates together across encodings (2,000 draws, seed 42). These intervals describe variation in the held-out predictions conditional on the fitted models.
 
-## 5. Evaluate the holdout and save results
-
-Select the preferred combination by development RMSE, breaking ties by MAE and then fit time. Lock that choice before scoring the test set. Refit the 15 combinations and four baselines on all development rows, evaluate them on the same test flights once, and report every result.
-
-Save fold scores in `results/cv_metrics.csv`, final scores in `results/test_metrics.csv`, and paired differences in `results/paired_comparisons.csv`. Keep row-level predictions with flight ID, date, fold, model, encoding, observed delay, and predicted delay. Record split assignments, input hashes, feature order, seeds, model parameters, package versions, hardware, thread limits, and timings so the notebook can reproduce the comparison from a fresh kernel.
-
-Interpret the findings within each model family and for flights with recorded delays in this historical sample. The random split measures performance on similar flights. Geographic encoding supplies external coordinates, and each representation can change how many features the model sees.
+For a separate results export, save fold scores in `results/cv_metrics.csv`, final scores in `results/test_metrics.csv`, and paired differences in `results/paired_comparisons.csv`. Keep row-level predictions with flight ID, date, fold, model, encoding, observed delay, and predicted delay. Record split assignments, input hashes, feature order, seeds, model parameters, package versions, hardware, thread limits, and timings so the notebook can reproduce the comparison from a fresh kernel.
