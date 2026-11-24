@@ -10,7 +10,7 @@ See the [modeling plan](MODELING_PLAN.md) for how we compare five airport encodi
 
 This project investigates how different encoding strategies for categorical location variables affect the predictive performance of machine learning models. Location variables can contain hundreds or thousands of unique categories, making their representation an important modeling decision.
 
-The notebook creates five datasets on the same train/test split. Each dataset contains only its encoded origin and destination features plus the arrival-delay target. No other flight columns are included as model inputs.
+The notebook draws one reproducible sample of 100,000 flights with observed arrival delays (seed 42). All five encoded datasets use the same 80,000 training and 20,000 test flights. Each dataset contains only its encoded origin and destination features plus the arrival-delay target. No other flight columns are included as model inputs.
 
 - **One-hot encoding:** Creates a separate binary feature for each location.
 - **Ordinal encoding:** Assigns a numerical identifier to each location.

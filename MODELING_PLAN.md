@@ -6,7 +6,7 @@ How much does the choice of airport encoding change prediction error for the sam
 
 **Completed in the notebook.** The dataset builder now returns only the selected encoding of origin and destination plus the target. The modeling predictors are limited to location. Model fitting and evaluation remain to be done.
 
-Use all 327,346 flights with an observed `arr_delay`. Keep early arrivals and extreme delays. Set aside the target and build the predictor matrix from the following features only.
+Draw one random sample of 100,000 flights from the 327,346 with an observed `arr_delay`, without replacement and with seed 42. Keep early arrivals and extreme delays eligible for sampling. Set aside the target and build the predictor matrix from the following features only.
 
 | Shared predictor | Preparation |
 | --- | --- |
