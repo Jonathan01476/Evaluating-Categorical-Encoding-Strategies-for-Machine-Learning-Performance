@@ -1,0 +1,35 @@
+One Hot:
+Ridge Training time: 1.6471 seconds
+Ridge RMSE: 14.835886385351785
+Random Forest Training time: 701.5475 seconds
+RandomForest RMSE: 14.46605199525599
+Gradient Training time: 701.5475 seconds
+RandomForest RMSE: 16.041405228329275
+Ordinal:
+Ridge Training time: 0.1805 seconds
+Ridge RMSE: 15.52095760446192
+Random Forest Training time: 350.6370 seconds
+RandomForest RMSE: 14.392614778725072
+Gradient Training time: 103.0755 seconds
+RandomForest RMSE: 16.04567674068742
+Frequency:
+Ridge Training time: 0.1913 seconds
+Ridge RMSE: 15.532092890028958
+Random Forest Training time: 355.8779 seconds
+RandomForest RMSE: 14.459768387760903
+Gradient Training time: 105.1038 seconds
+RandomForest RMSE: 16.056931826606533
+smoothed Target:
+Ridge Training time: 0.2170 seconds
+Ridge RMSE: 15.512250385742938
+Random Forest Training time: 372.4028 seconds
+RandomForest RMSE: 14.483678793239577
+Gradient Training time: 108.4735 seconds
+RandomForest RMSE: 16.088572820052878
+Geographic:
+Ridge Training time: 0.2440 seconds
+Ridge RMSE: 15.221642634259753
+Random Forest Training time: 386.6999 seconds
+RandomForest RMSE: 14.39796443578689
+Gradient Training time: 110.1170 seconds
+RandomForest RMSE: 16.060768734928725
