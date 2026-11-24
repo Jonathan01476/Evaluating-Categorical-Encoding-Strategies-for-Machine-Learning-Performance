@@ -36,7 +36,7 @@ Run all 15 combinations with these fixed settings.
 
 ## 4. Compare predictions on the same flights
 
-Use **root mean squared error (RMSE)** in minutes as the primary score. Also report mean absolute error (MAE) in minutes and R?. Report individual validation fold scores and summarize RMSE across folds by its mean and standard deviation.
+Use **root mean squared error (RMSE)** in minutes as the primary score. Also report mean absolute error (MAE) in minutes and R². Report individual validation fold scores and summarize RMSE across folds by its mean and standard deviation.
 
 Measure fit time in seconds with one thread, after encoding and before prediction. Ridge fit time includes scaling. Compare median and range across the five folds on the same machine.
 

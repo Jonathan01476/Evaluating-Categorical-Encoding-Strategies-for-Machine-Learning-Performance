@@ -30,7 +30,7 @@ The modeling notebook evaluates Ridge, Gradient Boosting, and a standalone Decis
 
 ## Evaluation
 
-Compare prediction error using RMSE and MAE in minutes. The notebook also reports R? and wall-clock fit time.
+Compare prediction error using RMSE and MAE in minutes. The notebook also reports R² and wall-clock fit time.
 
 Our goal is to determine whether certain encoding strategies consistently outperform others or whether their effectiveness depends on the model being used.
 
