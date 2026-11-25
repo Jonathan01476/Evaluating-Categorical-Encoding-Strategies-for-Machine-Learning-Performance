@@ -2,9 +2,9 @@
 
 # Location Encoding and Model Comparison
 
-## Modeling plan
+## Run the experiment
 
-Run [the modeling notebook](src/modeling/Modeling.ipynb) for all 15 model and encoding combinations. See the [modeling plan](MODELING_PLAN.md) for the shared protocol.
+Run [the modeling notebook](src/modeling/Modeling.ipynb) for all 15 model and encoding combinations.
 
 ## Project Overview
 
@@ -45,4 +45,4 @@ All datasets are stored in `data/`:
 - `data/flights.csv`: flight records, including the `arr_delay` target.
 - `data/airport_coordinates.csv`: airport latitude/longitude lookup for geographic encoding.
 
-Use [the data-preparation notebook](src/Final_Project.ipynb) to inspect the sample and encoded inputs. Both notebooks share the sampling and encoding code in `src/airport_encoding.py`.
+Use [the data cleaning, preprocessing, and EDA notebook](src/Flight_Data_Cleaning_Preprocessing_EDA.ipynb) to explore the source flights and inspect the encoded inputs. Both notebooks share the sampling and encoding code in `src/airport_encoding.py`.
